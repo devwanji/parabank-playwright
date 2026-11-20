@@ -8,7 +8,7 @@ End-to-end test automation framework built with **Playwright and TypeScript** fo
 
 This project demonstrates a maintainable QA automation framework covering UI automation, API testing, network mocking, test data generation, cross-browser testing, debugging, and CI/CD.
 
-The framework uses the **Page Object Model (POM)** and reusable Playwright fixtures.
+The framework uses the **Page Object Model (POM)** and reusable Playwright fixtures to improve test organization, maintainability, and reusability.
 
 ## Technologies
 
@@ -17,10 +17,10 @@ The framework uses the **Page Object Model (POM)** and reusable Playwright fixtu
 - Node.js
 - Git and GitHub
 - GitHub Actions
-- REST API testing
-- Network interception and mocking
+- REST API Testing
+- Network Interception and Mocking
 - Page Object Model
-- Cross-browser testing
+- Cross-Browser Testing
 
 ## Test Coverage
 
@@ -30,7 +30,7 @@ The framework uses the **Page Object Model (POM)** and reusable Playwright fixtu
 - Registration form automation
 - Dynamic test-data generation
 - Account creation
-- Transfer funds workflow
+- Funds transfer workflow
 - Reusable Playwright fixtures
 
 ### API Testing
@@ -40,6 +40,7 @@ The framework uses the **Page Object Model (POM)** and reusable Playwright fixtu
 - Response-time validation
 - Authentication testing
 - Negative API scenarios
+- Invalid endpoint handling
 
 ### API Mocking
 
@@ -49,13 +50,15 @@ The framework uses the **Page Object Model (POM)** and reusable Playwright fixtu
 
 ### Cross-Browser Testing
 
+Regression tests executed across:
+
 - Chromium
 - Firefox
 - WebKit
 
 ### Debugging and Reporting
 
-- HTML reports
+- HTML test reports
 - Screenshots on failure
 - Video recording on failure
 - Playwright traces
@@ -68,45 +71,65 @@ GitHub Actions automatically executes:
 - Registration tests
 - Cross-browser regression tests
 
-Triggered by pushes to `main` and pull requests targeting `main`.
+The workflow is triggered by pushes to `main` and pull requests targeting `main`.
 
 ## Project Structure
 
 ```text
 parabank-playwright/
-|-- .github/
-|   |-- workflows/
-|       |-- parabank-playwright.yml
-|-- auth/
-|   |-- create-account.ts
-|   |-- setup.ts
-|-- fixtures/
-|   |-- api.ts
-|   |-- test.ts
-|   |-- testData.ts
-|-- pages/
-|   |-- LoginPage.ts
-|   |-- RegisterPage.ts
-|   |-- TransferPage.ts
-|-- tests/
-|   |-- api/
-|   |   |-- auth.spec.ts
-|   |   |-- mock-failure.spec.ts
-|   |   |-- mocking.spec.ts
-|   |   |-- users.spec.ts
-|   |-- example.spec.ts
-|   |-- registration.spec.ts
-|   |-- transfer.spec.ts
-|-- .gitignore
-|-- package.json
-|-- playwright.config.ts
-|-- playwright.api.config.ts
-|-- playwright.login.config.ts
-|-- playwright.registration.config.ts
-|-- README.md
+├── .github/
+│   └── workflows/
+│       └── parabank-playwright.yml
+├── auth/
+│   ├── create-account.ts
+│   └── setup.ts
+├── fixtures/
+│   ├── api.ts
+│   ├── test.ts
+│   └── testData.ts
+├── pages/
+│   ├── LoginPage.ts
+│   ├── RegisterPage.ts
+│   └── TransferPage.ts
+├── tests/
+│   ├── api/
+│   │   ├── auth.spec.ts
+│   │   ├── mock-failure.spec.ts
+│   │   ├── mocking.spec.ts
+│   │   └── users.spec.ts
+│   ├── example.spec.ts
+│   ├── registration.spec.ts
+│   └── transfer.spec.ts
+├── .gitignore
+├── package.json
+├── playwright.config.ts
+├── playwright.api.config.ts
+├── playwright.login.config.ts
+├── playwright.registration.config.ts
+└── README.md
 ```
 
 ## Getting Started
+
+### Prerequisites
+
+- Node.js
+- npm
+- Git
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/devwanji/parabank-playwright.git
+```
+
+Navigate into the project directory:
+
+```bash
+cd parabank-playwright
+```
 
 Install dependencies:
 
@@ -120,45 +143,55 @@ Install Playwright browsers:
 npx playwright install
 ```
 
-### Run API Tests
+## Running Tests
+
+### API Tests
 
 ```bash
-npx playwright test --config=playwright.api.config.ts
+npm run test:api
 ```
 
-### Run Registration Tests
+### Registration Tests
 
 ```bash
-npx playwright test --config=playwright.registration.config.ts --timeout=90000
+npm run test:registration
 ```
 
-### Run Regression Tests
+### Regression Tests
+
+Run the tagged regression tests:
 
 ```bash
-npx playwright test --config=playwright.login.config.ts --grep "@regression"
+npm run test:regression -- --workers=1 --timeout=90000
 ```
 
-### Run Regression Tests Across All Browsers
+### Cross-Browser Regression Tests
+
+Run regression tests across Chromium, Firefox, and WebKit:
 
 ```bash
-npx playwright test --config=playwright.login.config.ts --grep "@regression" --workers=3 --timeout=90000
+npm run test:regression:all
 ```
 
 ### View HTML Report
 
 ```bash
-npx playwright show-report
+npm run test:report
 ```
 
 ## CI/CD
 
-GitHub Actions automatically installs dependencies and browsers, then executes the configured test suites.
+GitHub Actions automatically installs dependencies and Playwright browsers before executing the configured test suites.
 
-**Latest CI pipeline: Passing**
+The pipeline runs API, registration, and cross-browser regression tests.
+
+**GitHub Actions:** [View workflow runs](https://github.com/devwanji/parabank-playwright/actions)
 
 ## Security
 
-Sensitive authentication and environment files are excluded from version control:
+Sensitive authentication and environment files are excluded from version control through `.gitignore`.
+
+These include:
 
 - `.env`
 - `auth/user.json`
@@ -173,3 +206,5 @@ Sensitive authentication and environment files are excluded from version control
 **Terry Kariuki**
 
 QA Automation | Playwright | TypeScript | API Testing
+
+[GitHub](https://github.com/devwanji)
