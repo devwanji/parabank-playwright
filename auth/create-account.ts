@@ -11,12 +11,15 @@ async function createTestAccount() {
   const page = await browser.newPage();
 
   try {
-    // Open ParaBank and wait only for the HTML document to load.
     await page.goto('https://parabank.parasoft.com/parabank/', {
-      waitUntil: 'domcontentloaded',
-      timeout: 60000,
-    });
+  waitUntil: 'commit',
+  timeout: 60000,
+});
 
+await page.locator('input[name="username"]').waitFor({
+  state: 'visible',
+  timeout: 30000,
+});
     // Navigate to the customer registration page.
     await page.getByRole('link', { name: 'Register' }).click();
 
